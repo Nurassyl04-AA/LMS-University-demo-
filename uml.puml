@@ -1,0 +1,42 @@
+@startuml
+interface Subject { +subscribe(type, observer) +unsubscribe(type, observer) +publish(event) }
+interface Observer { +onEvent(event) }
+class ThreadSafeSubject
+Subject <|.. ThreadSafeSubject
+class GradeSource
+class DeadlineSource
+GradeSource --> Subject
+DeadlineSource --> Subject
+Observer <|.. RecordingListener
+Observer <|.. GpaTracker
+Observer <|.. AggregatingListener
+Subject <|.. AggregatingListener
+interface Element { +accept(visitor) }
+interface Visitor<R>
+class Faculty
+class Program
+class Course
+class Lecture
+class Lab
+class Exam
+class Student
+Element <|.. Faculty
+Element <|.. Program
+Element <|.. Course
+Element <|.. Lecture
+Element <|.. Lab
+Element <|.. Exam
+Element <|.. Student
+Visitor <|.. CreditVisitor
+Visitor <|.. WorkloadVisitor
+Visitor <|.. StudentFilterVisitor
+Visitor <|.. JsonExportVisitor
+Faculty *-- Program
+Program *-- Course
+Course *-- Lecture
+Course *-- Lab
+Course *-- Exam
+Course *-- Student
+AlertInspectionListener ..> Visitor
+AlertInspectionListener ..> Subject
+@enduml
